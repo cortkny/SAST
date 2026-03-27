@@ -30,9 +30,10 @@ jobs:
       - name: Run AppScan SAST Scan
         uses: HCL-TECH-SOFTWARE/appscan-sast-action@v1.0.7
         with:
-          asoc_key: ${{ secrets.ASOC_KEY }}
-          asoc_secret: ${{ secrets.ASOC_SECRET }}
-          application_id: ${{ secrets.APPSCAN_APP_ID }}
+          service_url: ${{ secrets.SERVICE_URL }}
+          asoc_key: ${{ secrets.AS360_KEY }}
+          asoc_secret: ${{ secrets.A360_SECRET }}
+          application_id: ${{ secrets.APPLICATION_ID }}
 
           # Recommended options for your lab
           scan_build_outputs: true

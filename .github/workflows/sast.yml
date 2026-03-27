@@ -1,0 +1,42 @@
+name: HCL AppScan SAST
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  sast-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout your repo
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. (Optional but recommended) Build Java app
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      # 3. Run AppScan SAST
+      - name: Run AppScan SAST Scan
+        uses: HCL-TECH-SOFTWARE/appscan-sast-action@v1.0.7
+        with:
+          asoc_key: ${{ secrets.ASOC_KEY }}
+          asoc_secret: ${{ secrets.ASOC_SECRET }}
+          application_id: ${{ secrets.APPSCAN_APP_ID }}
+
+          # 🔥 Recommended options for your lab
+          scan_build_outputs: true
+          wait_for_analysis: true
+          analysis_timeout_minutes: 30
+          fail_for_noncompliance: true
+          failure_threshold: Medium

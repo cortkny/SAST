@@ -34,7 +34,7 @@ jobs:
           asoc_secret: ${{ secrets.ASOC_SECRET }}
           application_id: ${{ secrets.APPSCAN_APP_ID }}
 
-          # 🔥 Recommended options for your lab
+          # Recommended options for your lab
           scan_build_outputs: true
           wait_for_analysis: true
           analysis_timeout_minutes: 30
